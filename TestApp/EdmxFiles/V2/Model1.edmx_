@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="My2ndGenerationModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="My2ndGenerationModelStoreContainer">
+          <EntitySet Name="Collaborator" EntityType="My2ndGenerationModel.Store.Collaborator" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CollaboratorDatabasePermission" EntityType="My2ndGenerationModel.Store.CollaboratorDatabasePermission" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CollaboratorInvite" EntityType="My2ndGenerationModel.Store.CollaboratorInvite" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CollaboratorJsonPermission" EntityType="My2ndGenerationModel.Store.CollaboratorJsonPermission" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_CollaboratorDatabasePermission_Collaborator" Association="My2ndGenerationModel.Store.FK_CollaboratorDatabasePermission_Collaborator">
+            <End Role="Collaborator" EntitySet="Collaborator" />
+            <End Role="CollaboratorDatabasePermission" EntitySet="CollaboratorDatabasePermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CollaboratorJsonPermission_Collaborator" Association="My2ndGenerationModel.Store.FK_CollaboratorJsonPermission_Collaborator">
+            <End Role="Collaborator" EntitySet="Collaborator" />
+            <End Role="CollaboratorJsonPermission" EntitySet="CollaboratorJsonPermission" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Collaborator">
+          <Key>
+            <PropertyRef Name="RepositoryId" />
+            <PropertyRef Name="MemberId" />
+          </Key>
+          <Property Name="RepositoryId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="MemberId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IsOwner" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CollaboratorDatabasePermission">
+          <Key>
+            <PropertyRef Name="RepositoryId" />
+            <PropertyRef Name="MemberId" />
+            <PropertyRef Name="PermissionId" />
+          </Key>
+          <Property Name="RepositoryId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="MemberId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PermissionId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CollaboratorInvite">
+          <Key>
+            <PropertyRef Name="MemberId" />
+            <PropertyRef Name="CollborationKey" />
+          </Key>
+          <Property Name="MemberId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CollborationKey" Type="nvarchar" Nullable="false" MaxLength="72" />
+          <Property Name="RepositoryId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="InviteeId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CollaboratorJsonPermission">
+          <Key>
+            <PropertyRef Name="RepositoryId" />
+            <PropertyRef Name="MemberId" />
+            <PropertyRef Name="PermissionId" />
+          </Key>
+          <Property Name="RepositoryId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="MemberId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PermissionId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CollaboratorDatabasePermission_Collaborator">
+          <End Role="Collaborator" Type="My2ndGenerationModel.Store.Collaborator" Multiplicity="1" />
+          <End Role="CollaboratorDatabasePermission" Type="My2ndGenerationModel.Store.CollaboratorDatabasePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Collaborator">
+              <PropertyRef Name="RepositoryId" />
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="CollaboratorDatabasePermission">
+              <PropertyRef Name="RepositoryId" />
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CollaboratorJsonPermission_Collaborator">
+          <End Role="Collaborator" Type="My2ndGenerationModel.Store.Collaborator" Multiplicity="1" />
+          <End Role="CollaboratorJsonPermission" Type="My2ndGenerationModel.Store.CollaboratorJsonPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Collaborator">
+              <PropertyRef Name="RepositoryId" />
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="CollaboratorJsonPermission">
+              <PropertyRef Name="RepositoryId" />
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="Chart_GetTemplatesTopRated" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="CleanDatabase" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DatabaseId" Type="uniqueidentifier" Mode="In" />
+        </Function>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="My2ndGenerationModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="My2ndGenerationEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Collaborators" EntityType="My2ndGenerationModel.Collaborator" />
+          <EntitySet Name="CollaboratorDatabasePermissions" EntityType="My2ndGenerationModel.CollaboratorDatabasePermission" />
+          <EntitySet Name="CollaboratorInvites" EntityType="My2ndGenerationModel.CollaboratorInvite" />
+          <EntitySet Name="CollaboratorJsonPermissions" EntityType="My2ndGenerationModel.CollaboratorJsonPermission" />
+          <AssociationSet Name="FK_CollaboratorDatabasePermission_Collaborator" Association="My2ndGenerationModel.FK_CollaboratorDatabasePermission_Collaborator">
+            <End Role="Collaborator" EntitySet="Collaborators" />
+            <End Role="CollaboratorDatabasePermission" EntitySet="CollaboratorDatabasePermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CollaboratorJsonPermission_Collaborator" Association="My2ndGenerationModel.FK_CollaboratorJsonPermission_Collaborator">
+            <End Role="Collaborator" EntitySet="Collaborators" />
+            <End Role="CollaboratorJsonPermission" EntitySet="CollaboratorJsonPermissions" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Collaborator">
+          <Key>
+            <PropertyRef Name="RepositoryId" />
+            <PropertyRef Name="MemberId" />
+          </Key>
+          <Property Name="RepositoryId" Type="Guid" Nullable="false" />
+          <Property Name="MemberId" Type="Guid" Nullable="false" />
+          <Property Name="IsOwner" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="CollaboratorDatabasePermissions" Relationship="My2ndGenerationModel.FK_CollaboratorDatabasePermission_Collaborator" FromRole="Collaborator" ToRole="CollaboratorDatabasePermission" />
+          <NavigationProperty Name="CollaboratorJsonPermissions" Relationship="My2ndGenerationModel.FK_CollaboratorJsonPermission_Collaborator" FromRole="Collaborator" ToRole="CollaboratorJsonPermission" />
+        </EntityType>
+        <EntityType Name="CollaboratorDatabasePermission">
+          <Key>
+            <PropertyRef Name="RepositoryId" />
+            <PropertyRef Name="MemberId" />
+            <PropertyRef Name="PermissionId" />
+          </Key>
+          <Property Name="RepositoryId" Type="Guid" Nullable="false" />
+          <Property Name="MemberId" Type="Guid" Nullable="false" />
+          <Property Name="PermissionId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Collaborator" Relationship="My2ndGenerationModel.FK_CollaboratorDatabasePermission_Collaborator" FromRole="CollaboratorDatabasePermission" ToRole="Collaborator" />
+        </EntityType>
+        <EntityType Name="CollaboratorInvite">
+          <Key>
+            <PropertyRef Name="MemberId" />
+            <PropertyRef Name="CollborationKey" />
+          </Key>
+          <Property Name="MemberId" Type="Guid" Nullable="false" />
+          <Property Name="CollborationKey" Type="String" Nullable="false" MaxLength="72" Unicode="true" FixedLength="false" />
+          <Property Name="RepositoryId" Type="Guid" Nullable="false" />
+          <Property Name="InviteeId" Type="Guid" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="CollaboratorJsonPermission">
+          <Key>
+            <PropertyRef Name="RepositoryId" />
+            <PropertyRef Name="MemberId" />
+            <PropertyRef Name="PermissionId" />
+          </Key>
+          <Property Name="RepositoryId" Type="Guid" Nullable="false" />
+          <Property Name="MemberId" Type="Guid" Nullable="false" />
+          <Property Name="PermissionId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Collaborator" Relationship="My2ndGenerationModel.FK_CollaboratorJsonPermission_Collaborator" FromRole="CollaboratorJsonPermission" ToRole="Collaborator" />
+        </EntityType>
+        <Association Name="FK_CollaboratorDatabasePermission_Collaborator">
+          <End Role="Collaborator" Type="My2ndGenerationModel.Collaborator" Multiplicity="1" />
+          <End Role="CollaboratorDatabasePermission" Type="My2ndGenerationModel.CollaboratorDatabasePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Collaborator">
+              <PropertyRef Name="RepositoryId" />
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="CollaboratorDatabasePermission">
+              <PropertyRef Name="RepositoryId" />
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CollaboratorJsonPermission_Collaborator">
+          <End Role="Collaborator" Type="My2ndGenerationModel.Collaborator" Multiplicity="1" />
+          <End Role="CollaboratorJsonPermission" Type="My2ndGenerationModel.CollaboratorJsonPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Collaborator">
+              <PropertyRef Name="RepositoryId" />
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="CollaboratorJsonPermission">
+              <PropertyRef Name="RepositoryId" />
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="My2ndGenerationModelStoreContainer" CdmEntityContainer="My2ndGenerationEntities">
+          <EntitySetMapping Name="Collaborators">
+            <EntityTypeMapping TypeName="My2ndGenerationModel.Collaborator">
+              <MappingFragment StoreEntitySet="Collaborator">
+                <ScalarProperty Name="RepositoryId" ColumnName="RepositoryId" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="IsOwner" ColumnName="IsOwner" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CollaboratorDatabasePermissions">
+            <EntityTypeMapping TypeName="My2ndGenerationModel.CollaboratorDatabasePermission">
+              <MappingFragment StoreEntitySet="CollaboratorDatabasePermission">
+                <ScalarProperty Name="RepositoryId" ColumnName="RepositoryId" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CollaboratorInvites">
+            <EntityTypeMapping TypeName="My2ndGenerationModel.CollaboratorInvite">
+              <MappingFragment StoreEntitySet="CollaboratorInvite">
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="CollborationKey" ColumnName="CollborationKey" />
+                <ScalarProperty Name="RepositoryId" ColumnName="RepositoryId" />
+                <ScalarProperty Name="InviteeId" ColumnName="InviteeId" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CollaboratorJsonPermissions">
+            <EntityTypeMapping TypeName="My2ndGenerationModel.CollaboratorJsonPermission">
+              <MappingFragment StoreEntitySet="CollaboratorJsonPermission">
+                <ScalarProperty Name="RepositoryId" ColumnName="RepositoryId" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="Model1">
+        <EntityTypeShape EntityType="My2ndGenerationModel.Collaborator" Width="1.5" PointX="0.75" PointY="2.25" Height="1.9802864583333339" IsExpanded="true" />
+        <EntityTypeShape EntityType="My2ndGenerationModel.CollaboratorDatabasePermission" Width="1.5" PointX="3" PointY="1" Height="1.7879850260416674" IsExpanded="true" />
+        <EntityTypeShape EntityType="My2ndGenerationModel.CollaboratorInvite" Width="1.5" PointX="5.75" PointY="0.75" Height="1.9802864583333326" IsExpanded="true" />
+        <EntityTypeShape EntityType="My2ndGenerationModel.CollaboratorJsonPermission" Width="1.5" PointX="3" PointY="3.625" Height="1.7879850260416657" IsExpanded="true" />
+        <AssociationConnector Association="My2ndGenerationModel.FK_CollaboratorDatabasePermission_Collaborator" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="2.5189925130208337" />
+          <ConnectorPoint PointX="3" PointY="2.5189925130208337" />
+        </AssociationConnector>
+        <AssociationConnector Association="My2ndGenerationModel.FK_CollaboratorJsonPermission_Collaborator" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="3.9276432291666667" />
+          <ConnectorPoint PointX="3" PointY="3.9276432291666667" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

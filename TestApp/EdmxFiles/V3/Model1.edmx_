@@ -1,0 +1,496 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="My2ndGenerationModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="My2ndGenerationModelStoreContainer">
+          <EntitySet Name="Collaborator" EntityType="My2ndGenerationModel.Store.Collaborator" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CollaboratorDatabasePermission" EntityType="My2ndGenerationModel.Store.CollaboratorDatabasePermission" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CollaboratorInvite" EntityType="My2ndGenerationModel.Store.CollaboratorInvite" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ForeignKey" EntityType="My2ndGenerationModel.Store.ForeignKey" store:Type="Tables" Schema="meta" />
+          <EntitySet Name="ForeignKeyColumn" EntityType="My2ndGenerationModel.Store.ForeignKeyColumn" store:Type="Tables" Schema="meta" />
+          <AssociationSet Name="FK_CollaboratorDatabasePermission_Collaborator" Association="My2ndGenerationModel.Store.FK_CollaboratorDatabasePermission_Collaborator">
+            <End Role="Collaborator" EntitySet="Collaborator" />
+            <End Role="CollaboratorDatabasePermission" EntitySet="CollaboratorDatabasePermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForeignKeyColumn_ForeignKey" Association="My2ndGenerationModel.Store.FK_ForeignKeyColumn_ForeignKey">
+            <End Role="ForeignKey" EntitySet="ForeignKey" />
+            <End Role="ForeignKeyColumn" EntitySet="ForeignKeyColumn" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Collaborator">
+          <Key>
+            <PropertyRef Name="RepositoryId" />
+            <PropertyRef Name="MemberId" />
+          </Key>
+          <Property Name="RepositoryId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="MemberId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IsOwner" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CollaboratorDatabasePermission">
+          <Key>
+            <PropertyRef Name="RepositoryId" />
+            <PropertyRef Name="MemberId" />
+            <PropertyRef Name="PermissionId" />
+          </Key>
+          <Property Name="RepositoryId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="MemberId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PermissionId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CollaboratorInvite">
+          <Key>
+            <PropertyRef Name="MemberId" />
+            <PropertyRef Name="CollborationKey" />
+          </Key>
+          <Property Name="MemberId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CollborationKey" Type="nvarchar" Nullable="false" MaxLength="72" />
+          <Property Name="RepositoryId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="InviteeId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ForeignKey">
+          <Key>
+            <PropertyRef Name="ForeignKeyId" />
+          </Key>
+          <Property Name="ForeignKeyId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PrimaryTableId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ForeignTableId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ForeignKeyType" Type="nvarchar" MaxLength="100" />
+          <Property Name="DatabaseId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" Nullable="false" MaxLength="300" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="300" />
+          <Property Name="Alias" Type="nvarchar" Nullable="false" MaxLength="300" />
+          <Property Name="UpdateRule" Type="nvarchar" MaxLength="100" />
+          <Property Name="DeleteRule" Type="nvarchar" MaxLength="100" />
+          <Property Name="PrimaryKeyName" Type="nvarchar" MaxLength="300" />
+          <Property Name="Deferrability" Type="nvarchar" MaxLength="100" />
+          <Property Name="Processed" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ForeignKeyColumn">
+          <Key>
+            <PropertyRef Name="ForeignKeyColumnId" />
+          </Key>
+          <Property Name="ForeignKeyColumnId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ForeignKeyId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ColumnId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DatabaseId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Ordinal" Type="int" Nullable="false" />
+          <Property Name="IsPrimaryColumn" Type="bit" Nullable="false" />
+          <Property Name="Processed" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CollaboratorDatabasePermission_Collaborator">
+          <End Role="Collaborator" Type="My2ndGenerationModel.Store.Collaborator" Multiplicity="1" />
+          <End Role="CollaboratorDatabasePermission" Type="My2ndGenerationModel.Store.CollaboratorDatabasePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Collaborator">
+              <PropertyRef Name="RepositoryId" />
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="CollaboratorDatabasePermission">
+              <PropertyRef Name="RepositoryId" />
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForeignKeyColumn_ForeignKey">
+          <End Role="ForeignKey" Type="My2ndGenerationModel.Store.ForeignKey" Multiplicity="1" />
+          <End Role="ForeignKeyColumn" Type="My2ndGenerationModel.Store.ForeignKeyColumn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ForeignKey">
+              <PropertyRef Name="ForeignKeyId" />
+            </Principal>
+            <Dependent Role="ForeignKeyColumn">
+              <PropertyRef Name="ForeignKeyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="Chart_GetDatabaseTypes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Chart_GetTemplateEngines" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SelectBulkTableColumns_CSharp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="meta">
+          <Parameter Name="DatabaseId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="Language" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="SelectBulkTableColumns_VbDotNet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="meta">
+          <Parameter Name="DatabaseId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="Language" Type="nvarchar" Mode="In" />
+        </Function>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="My2ndGenerationModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="My2ndGenerationEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Collaborators" EntityType="My2ndGenerationModel.Collaborator" />
+          <EntitySet Name="CollaboratorDatabasePermissions" EntityType="My2ndGenerationModel.CollaboratorDatabasePermission" />
+          <EntitySet Name="CollaboratorInvites" EntityType="My2ndGenerationModel.CollaboratorInvite" />
+          <EntitySet Name="ForeignKeys" EntityType="My2ndGenerationModel.ForeignKey" />
+          <EntitySet Name="ForeignKeyColumns" EntityType="My2ndGenerationModel.ForeignKeyColumn" />
+          <AssociationSet Name="FK_CollaboratorDatabasePermission_Collaborator" Association="My2ndGenerationModel.FK_CollaboratorDatabasePermission_Collaborator">
+            <End Role="Collaborator" EntitySet="Collaborators" />
+            <End Role="CollaboratorDatabasePermission" EntitySet="CollaboratorDatabasePermissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ForeignKeyColumn_ForeignKey" Association="My2ndGenerationModel.FK_ForeignKeyColumn_ForeignKey">
+            <End Role="ForeignKey" EntitySet="ForeignKeys" />
+            <End Role="ForeignKeyColumn" EntitySet="ForeignKeyColumns" />
+          </AssociationSet>
+          <FunctionImport Name="Chart_GetDatabaseTypes" ReturnType="Collection(My2ndGenerationModel.Chart_GetDatabaseTypes_Result)" />
+          <FunctionImport Name="Chart_GetTemplateEngines" ReturnType="Collection(My2ndGenerationModel.Chart_GetTemplateEngines_Result)" />
+          <FunctionImport Name="SelectBulkTableColumns_CSharp" ReturnType="Collection(My2ndGenerationModel.SelectBulkTableColumns_CSharp_Result)">
+            <Parameter Name="DatabaseId" Mode="In" Type="Guid" />
+            <Parameter Name="Language" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SelectBulkTableColumns_VbDotNet" ReturnType="Collection(My2ndGenerationModel.SelectBulkTableColumns_VbDotNet_Result)">
+            <Parameter Name="DatabaseId" Mode="In" Type="Guid" />
+            <Parameter Name="Language" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="Collaborator">
+          <Key>
+            <PropertyRef Name="RepositoryId" />
+            <PropertyRef Name="MemberId" />
+          </Key>
+          <Property Name="RepositoryId" Type="Guid" Nullable="false" />
+          <Property Name="MemberId" Type="Guid" Nullable="false" />
+          <Property Name="IsOwner" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="CollaboratorDatabasePermissions" Relationship="My2ndGenerationModel.FK_CollaboratorDatabasePermission_Collaborator" FromRole="Collaborator" ToRole="CollaboratorDatabasePermission" />
+        </EntityType>
+        <EntityType Name="CollaboratorDatabasePermission">
+          <Key>
+            <PropertyRef Name="RepositoryId" />
+            <PropertyRef Name="MemberId" />
+            <PropertyRef Name="PermissionId" />
+          </Key>
+          <Property Name="RepositoryId" Type="Guid" Nullable="false" />
+          <Property Name="MemberId" Type="Guid" Nullable="false" />
+          <Property Name="PermissionId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Collaborator" Relationship="My2ndGenerationModel.FK_CollaboratorDatabasePermission_Collaborator" FromRole="CollaboratorDatabasePermission" ToRole="Collaborator" />
+        </EntityType>
+        <EntityType Name="CollaboratorInvite">
+          <Key>
+            <PropertyRef Name="MemberId" />
+            <PropertyRef Name="CollborationKey" />
+          </Key>
+          <Property Name="MemberId" Type="Guid" Nullable="false" />
+          <Property Name="CollborationKey" Type="String" Nullable="false" MaxLength="72" Unicode="true" FixedLength="false" />
+          <Property Name="RepositoryId" Type="Guid" Nullable="false" />
+          <Property Name="InviteeId" Type="Guid" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="ForeignKey">
+          <Key>
+            <PropertyRef Name="ForeignKeyId" />
+          </Key>
+          <Property Name="ForeignKeyId" Type="Guid" Nullable="false" />
+          <Property Name="PrimaryTableId" Type="Guid" Nullable="false" />
+          <Property Name="ForeignTableId" Type="Guid" Nullable="false" />
+          <Property Name="ForeignKeyType" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="DatabaseId" Type="Guid" Nullable="false" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="300" Unicode="true" FixedLength="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="300" Unicode="true" FixedLength="false" />
+          <Property Name="Alias" Type="String" Nullable="false" MaxLength="300" Unicode="true" FixedLength="false" />
+          <Property Name="UpdateRule" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="DeleteRule" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="PrimaryKeyName" Type="String" MaxLength="300" Unicode="true" FixedLength="false" />
+          <Property Name="Deferrability" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Processed" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ForeignKeyColumns" Relationship="My2ndGenerationModel.FK_ForeignKeyColumn_ForeignKey" FromRole="ForeignKey" ToRole="ForeignKeyColumn" />
+        </EntityType>
+        <EntityType Name="ForeignKeyColumn">
+          <Key>
+            <PropertyRef Name="ForeignKeyColumnId" />
+          </Key>
+          <Property Name="ForeignKeyColumnId" Type="Guid" Nullable="false" />
+          <Property Name="ForeignKeyId" Type="Guid" Nullable="false" />
+          <Property Name="ColumnId" Type="Guid" Nullable="false" />
+          <Property Name="DatabaseId" Type="Guid" Nullable="false" />
+          <Property Name="Ordinal" Type="Int32" Nullable="false" />
+          <Property Name="IsPrimaryColumn" Type="Boolean" Nullable="false" />
+          <Property Name="Processed" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ForeignKey" Relationship="My2ndGenerationModel.FK_ForeignKeyColumn_ForeignKey" FromRole="ForeignKeyColumn" ToRole="ForeignKey" />
+        </EntityType>
+        <Association Name="FK_CollaboratorDatabasePermission_Collaborator">
+          <End Role="Collaborator" Type="My2ndGenerationModel.Collaborator" Multiplicity="1" />
+          <End Role="CollaboratorDatabasePermission" Type="My2ndGenerationModel.CollaboratorDatabasePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Collaborator">
+              <PropertyRef Name="RepositoryId" />
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="CollaboratorDatabasePermission">
+              <PropertyRef Name="RepositoryId" />
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ForeignKeyColumn_ForeignKey">
+          <End Role="ForeignKey" Type="My2ndGenerationModel.ForeignKey" Multiplicity="1" />
+          <End Role="ForeignKeyColumn" Type="My2ndGenerationModel.ForeignKeyColumn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ForeignKey">
+              <PropertyRef Name="ForeignKeyId" />
+            </Principal>
+            <Dependent Role="ForeignKeyColumn">
+              <PropertyRef Name="ForeignKeyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="Chart_GetDatabaseTypes_Result">
+          <Property Type="Decimal" Name="Percentage" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="Chart_GetTemplateEngines_Result">
+          <Property Type="Decimal" Name="Percentage" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="SelectBulkTableColumns_CSharp_Result">
+          <Property Type="Guid" Name="ColumnId" Nullable="false" />
+          <Property Type="Guid" Name="TableId" Nullable="true" />
+          <Property Type="Guid" Name="ViewId" Nullable="true" />
+          <Property Type="Int32" Name="Ordinal" Nullable="false" />
+          <Property Type="String" Name="FullName" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="Alias" Nullable="true" MaxLength="300" />
+          <Property Type="Int32" Name="AutoKeyIncrement" Nullable="true" />
+          <Property Type="Int32" Name="AutoKeySeed" Nullable="true" />
+          <Property Type="String" Name="AutoKeyText" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="CharacterMaxLength" Nullable="true" />
+          <Property Type="String" Name="DataTypeName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="DataTypeNameComplete" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Default" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="1000" />
+          <Property Type="Boolean" Name="ExcludeColumn" Nullable="true" />
+          <Property Type="Boolean" Name="HasDefault" Nullable="true" />
+          <Property Type="Boolean" Name="IsAutoKey" Nullable="true" />
+          <Property Type="Boolean" Name="IsComputed" Nullable="true" />
+          <Property Type="Boolean" Name="IsConcurrency" Nullable="true" />
+          <Property Type="Boolean" Name="IsInForeignKey" Nullable="true" />
+          <Property Type="Boolean" Name="IsInPrimaryKey" Nullable="true" />
+          <Property Type="Boolean" Name="IsNullable" Nullable="true" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="300" />
+          <Property Type="Int32" Name="NumericPrecision" Nullable="true" />
+          <Property Type="Int32" Name="NumericScale" Nullable="true" />
+          <Property Type="String" Name="LanguageType" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="DotNet_Type" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="DotNet_NullableType" Nullable="true" MaxLength="100" />
+          <Property Type="Boolean" Name="DotNet_IsNullableType" Nullable="true" />
+          <Property Type="Boolean" Name="DotNet_IsArrayType" Nullable="true" />
+          <Property Type="Boolean" Name="DotNet_IsReferenceType" Nullable="true" />
+          <Property Type="String" Name="DotNet_DbType" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="SelectBulkTableColumns_VbDotNet_Result">
+          <Property Type="Guid" Name="ColumnId" Nullable="false" />
+          <Property Type="Guid" Name="TableId" Nullable="true" />
+          <Property Type="Guid" Name="ViewId" Nullable="true" />
+          <Property Type="Int32" Name="Ordinal" Nullable="false" />
+          <Property Type="String" Name="FullName" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="Alias" Nullable="true" MaxLength="300" />
+          <Property Type="Int32" Name="AutoKeyIncrement" Nullable="true" />
+          <Property Type="Int32" Name="AutoKeySeed" Nullable="true" />
+          <Property Type="String" Name="AutoKeyText" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="CharacterMaxLength" Nullable="true" />
+          <Property Type="String" Name="DataTypeName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="DataTypeNameComplete" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Default" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="1000" />
+          <Property Type="Boolean" Name="ExcludeColumn" Nullable="true" />
+          <Property Type="Boolean" Name="HasDefault" Nullable="true" />
+          <Property Type="Boolean" Name="IsAutoKey" Nullable="true" />
+          <Property Type="Boolean" Name="IsComputed" Nullable="true" />
+          <Property Type="Boolean" Name="IsConcurrency" Nullable="true" />
+          <Property Type="Boolean" Name="IsInForeignKey" Nullable="true" />
+          <Property Type="Boolean" Name="IsInPrimaryKey" Nullable="true" />
+          <Property Type="Boolean" Name="IsNullable" Nullable="true" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="300" />
+          <Property Type="Int32" Name="NumericPrecision" Nullable="true" />
+          <Property Type="Int32" Name="NumericScale" Nullable="true" />
+          <Property Type="String" Name="LanguageType" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="DotNet_Type" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="DotNet_NullableType" Nullable="true" MaxLength="100" />
+          <Property Type="Boolean" Name="DotNet_IsNullableType" Nullable="true" />
+          <Property Type="Boolean" Name="DotNet_IsArrayType" Nullable="true" />
+          <Property Type="Boolean" Name="DotNet_IsReferenceType" Nullable="true" />
+          <Property Type="String" Name="DotNet_DbType" Nullable="true" MaxLength="100" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="My2ndGenerationModelStoreContainer" CdmEntityContainer="My2ndGenerationEntities">
+          <EntitySetMapping Name="Collaborators">
+            <EntityTypeMapping TypeName="My2ndGenerationModel.Collaborator">
+              <MappingFragment StoreEntitySet="Collaborator">
+                <ScalarProperty Name="RepositoryId" ColumnName="RepositoryId" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="IsOwner" ColumnName="IsOwner" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CollaboratorDatabasePermissions">
+            <EntityTypeMapping TypeName="My2ndGenerationModel.CollaboratorDatabasePermission">
+              <MappingFragment StoreEntitySet="CollaboratorDatabasePermission">
+                <ScalarProperty Name="RepositoryId" ColumnName="RepositoryId" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CollaboratorInvites">
+            <EntityTypeMapping TypeName="My2ndGenerationModel.CollaboratorInvite">
+              <MappingFragment StoreEntitySet="CollaboratorInvite">
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="CollborationKey" ColumnName="CollborationKey" />
+                <ScalarProperty Name="RepositoryId" ColumnName="RepositoryId" />
+                <ScalarProperty Name="InviteeId" ColumnName="InviteeId" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ForeignKeys">
+            <EntityTypeMapping TypeName="My2ndGenerationModel.ForeignKey">
+              <MappingFragment StoreEntitySet="ForeignKey">
+                <ScalarProperty Name="ForeignKeyId" ColumnName="ForeignKeyId" />
+                <ScalarProperty Name="PrimaryTableId" ColumnName="PrimaryTableId" />
+                <ScalarProperty Name="ForeignTableId" ColumnName="ForeignTableId" />
+                <ScalarProperty Name="ForeignKeyType" ColumnName="ForeignKeyType" />
+                <ScalarProperty Name="DatabaseId" ColumnName="DatabaseId" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Alias" ColumnName="Alias" />
+                <ScalarProperty Name="UpdateRule" ColumnName="UpdateRule" />
+                <ScalarProperty Name="DeleteRule" ColumnName="DeleteRule" />
+                <ScalarProperty Name="PrimaryKeyName" ColumnName="PrimaryKeyName" />
+                <ScalarProperty Name="Deferrability" ColumnName="Deferrability" />
+                <ScalarProperty Name="Processed" ColumnName="Processed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ForeignKeyColumns">
+            <EntityTypeMapping TypeName="My2ndGenerationModel.ForeignKeyColumn">
+              <MappingFragment StoreEntitySet="ForeignKeyColumn">
+                <ScalarProperty Name="ForeignKeyColumnId" ColumnName="ForeignKeyColumnId" />
+                <ScalarProperty Name="ForeignKeyId" ColumnName="ForeignKeyId" />
+                <ScalarProperty Name="ColumnId" ColumnName="ColumnId" />
+                <ScalarProperty Name="DatabaseId" ColumnName="DatabaseId" />
+                <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
+                <ScalarProperty Name="IsPrimaryColumn" ColumnName="IsPrimaryColumn" />
+                <ScalarProperty Name="Processed" ColumnName="Processed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Chart_GetDatabaseTypes" FunctionName="My2ndGenerationModel.Store.Chart_GetDatabaseTypes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="My2ndGenerationModel.Chart_GetDatabaseTypes_Result">
+                <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Chart_GetTemplateEngines" FunctionName="My2ndGenerationModel.Store.Chart_GetTemplateEngines">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="My2ndGenerationModel.Chart_GetTemplateEngines_Result">
+                <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SelectBulkTableColumns_CSharp" FunctionName="My2ndGenerationModel.Store.SelectBulkTableColumns_CSharp">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="My2ndGenerationModel.SelectBulkTableColumns_CSharp_Result">
+                <ScalarProperty Name="ColumnId" ColumnName="ColumnId" />
+                <ScalarProperty Name="TableId" ColumnName="TableId" />
+                <ScalarProperty Name="ViewId" ColumnName="ViewId" />
+                <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Alias" ColumnName="Alias" />
+                <ScalarProperty Name="AutoKeyIncrement" ColumnName="AutoKeyIncrement" />
+                <ScalarProperty Name="AutoKeySeed" ColumnName="AutoKeySeed" />
+                <ScalarProperty Name="AutoKeyText" ColumnName="AutoKeyText" />
+                <ScalarProperty Name="CharacterMaxLength" ColumnName="CharacterMaxLength" />
+                <ScalarProperty Name="DataTypeName" ColumnName="DataTypeName" />
+                <ScalarProperty Name="DataTypeNameComplete" ColumnName="DataTypeNameComplete" />
+                <ScalarProperty Name="Default" ColumnName="Default" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ExcludeColumn" ColumnName="ExcludeColumn" />
+                <ScalarProperty Name="HasDefault" ColumnName="HasDefault" />
+                <ScalarProperty Name="IsAutoKey" ColumnName="IsAutoKey" />
+                <ScalarProperty Name="IsComputed" ColumnName="IsComputed" />
+                <ScalarProperty Name="IsConcurrency" ColumnName="IsConcurrency" />
+                <ScalarProperty Name="IsInForeignKey" ColumnName="IsInForeignKey" />
+                <ScalarProperty Name="IsInPrimaryKey" ColumnName="IsInPrimaryKey" />
+                <ScalarProperty Name="IsNullable" ColumnName="IsNullable" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="NumericPrecision" ColumnName="NumericPrecision" />
+                <ScalarProperty Name="NumericScale" ColumnName="NumericScale" />
+                <ScalarProperty Name="LanguageType" ColumnName="LanguageType" />
+                <ScalarProperty Name="DotNet_Type" ColumnName="DotNet_Type" />
+                <ScalarProperty Name="DotNet_NullableType" ColumnName="DotNet_NullableType" />
+                <ScalarProperty Name="DotNet_IsNullableType" ColumnName="DotNet_IsNullableType" />
+                <ScalarProperty Name="DotNet_IsArrayType" ColumnName="DotNet_IsArrayType" />
+                <ScalarProperty Name="DotNet_IsReferenceType" ColumnName="DotNet_IsReferenceType" />
+                <ScalarProperty Name="DotNet_DbType" ColumnName="DotNet_DbType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SelectBulkTableColumns_VbDotNet" FunctionName="My2ndGenerationModel.Store.SelectBulkTableColumns_VbDotNet">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="My2ndGenerationModel.SelectBulkTableColumns_VbDotNet_Result">
+                <ScalarProperty Name="ColumnId" ColumnName="ColumnId" />
+                <ScalarProperty Name="TableId" ColumnName="TableId" />
+                <ScalarProperty Name="ViewId" ColumnName="ViewId" />
+                <ScalarProperty Name="Ordinal" ColumnName="Ordinal" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Alias" ColumnName="Alias" />
+                <ScalarProperty Name="AutoKeyIncrement" ColumnName="AutoKeyIncrement" />
+                <ScalarProperty Name="AutoKeySeed" ColumnName="AutoKeySeed" />
+                <ScalarProperty Name="AutoKeyText" ColumnName="AutoKeyText" />
+                <ScalarProperty Name="CharacterMaxLength" ColumnName="CharacterMaxLength" />
+                <ScalarProperty Name="DataTypeName" ColumnName="DataTypeName" />
+                <ScalarProperty Name="DataTypeNameComplete" ColumnName="DataTypeNameComplete" />
+                <ScalarProperty Name="Default" ColumnName="Default" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ExcludeColumn" ColumnName="ExcludeColumn" />
+                <ScalarProperty Name="HasDefault" ColumnName="HasDefault" />
+                <ScalarProperty Name="IsAutoKey" ColumnName="IsAutoKey" />
+                <ScalarProperty Name="IsComputed" ColumnName="IsComputed" />
+                <ScalarProperty Name="IsConcurrency" ColumnName="IsConcurrency" />
+                <ScalarProperty Name="IsInForeignKey" ColumnName="IsInForeignKey" />
+                <ScalarProperty Name="IsInPrimaryKey" ColumnName="IsInPrimaryKey" />
+                <ScalarProperty Name="IsNullable" ColumnName="IsNullable" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="NumericPrecision" ColumnName="NumericPrecision" />
+                <ScalarProperty Name="NumericScale" ColumnName="NumericScale" />
+                <ScalarProperty Name="LanguageType" ColumnName="LanguageType" />
+                <ScalarProperty Name="DotNet_Type" ColumnName="DotNet_Type" />
+                <ScalarProperty Name="DotNet_NullableType" ColumnName="DotNet_NullableType" />
+                <ScalarProperty Name="DotNet_IsNullableType" ColumnName="DotNet_IsNullableType" />
+                <ScalarProperty Name="DotNet_IsArrayType" ColumnName="DotNet_IsArrayType" />
+                <ScalarProperty Name="DotNet_IsReferenceType" ColumnName="DotNet_IsReferenceType" />
+                <ScalarProperty Name="DotNet_DbType" ColumnName="DotNet_DbType" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
