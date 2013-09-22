@@ -35,11 +35,11 @@ See : http://brewdawg.github.io/Tiraggo.EF/ for real world usage
 
     try
     {
-        return "// Either the " + edxmFileName + " was not found or it's not a V2 EDMX File. You must change this in the Models\\TiraggoEdmx_v2.tt file.";
+        edmx = Edmx.Load(inputPath);
     }
     catch(Exception ex)
     {
-        return ex.Message;
+        return "// Either the " + edxmFileName + " was not found or it's not a V2 EDMX File. You must change this in the Models\\TiraggoEdmx_v2.tt file.";
     }
 
     MetadataLoader loader = new MetadataLoader(this);
