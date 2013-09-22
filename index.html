@@ -56,7 +56,7 @@
     <span class="c1">// Everthing you need including your low level SQL metadata types</span>
     <span class="n">TiraggoEntityInfo</span> <span class="n">info</span> <span class="p">=</span> <span class="k">new</span> <span class="n">TiraggoEntityInfo</span><span class="p">(</span><span class="n">edmx</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">FullName</span><span class="p">);</span>
 
-    <span class="k">foreach</span> <span class="p">(</span><span class="n">tgColumnCLR</span> <span class="n">prop</span> <span class="k">in</span> <span class="n">info</span><span class="p">.</span><span class="n">ConceptualModel</span><span class="p">.</span><span class="n">Properties</span><span class="p">)</span>
+    <span class="k">foreach</span> <span class="p">(</span><span class="n">tgProperty</span> <span class="n">prop</span> <span class="k">in</span> <span class="n">info</span><span class="p">.</span><span class="n">ConceptualModel</span><span class="p">.</span><span class="n">Properties</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="c1">// prop.Name is conceptual name, let's get the physical name</span>
         <span class="kt">string</span> <span class="n">physicalColumName</span> <span class="p">=</span> <span class="n">info</span><span class="p">.</span><span class="n">ColumnMappings</span><span class="p">[</span><span class="n">prop</span><span class="p">.</span><span class="n">Name</span><span class="p">];</span>
