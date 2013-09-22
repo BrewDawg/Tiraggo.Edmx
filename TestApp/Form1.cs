@@ -35,7 +35,7 @@ namespace ReadEdmxFiles
             text += "public partial class " + v2_info.ConceptualModel.Name + Environment.NewLine;
             text += "{" + Environment.NewLine;
 
-            foreach (TiraggoEdmx_v2.tgColumnCLR prop in v2_info.ConceptualModel.Properties)
+            foreach (TiraggoEdmx_v2.tgProperty prop in v2_info.ConceptualModel.Properties)
             {
                 attributes = "";
 
@@ -82,7 +82,7 @@ namespace ReadEdmxFiles
             text += "public partial class " + v3_info.ConceptualModel.Name + Environment.NewLine;
             text += "{" + Environment.NewLine;
 
-            foreach (TiraggoEdmx_v3.tgColumnCLR prop in v3_info.ConceptualModel.Properties)
+            foreach (TiraggoEdmx_v3.tgProperty prop in v3_info.ConceptualModel.Properties)
             {
                 attributes = "";
 

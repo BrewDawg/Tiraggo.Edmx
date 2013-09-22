@@ -59,7 +59,7 @@ namespace TiraggoEdmx_v2
 
         public Dictionary<string, string> ColumnMappings { get; internal set; }
 
-        public Dictionary<string, tgColumnCLR> ColumnCLR { get; internal set; }
+        public Dictionary<string, tgProperty> ColumnCLR { get; internal set; }
 
         public Dictionary<string, tgProperty> ColumnSQL { get; internal set; }
 

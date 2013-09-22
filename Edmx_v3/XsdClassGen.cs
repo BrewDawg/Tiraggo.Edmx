@@ -691,156 +691,6 @@ namespace TiraggoEdmx_v3
 
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://schemas.microsoft.com/ado/2009/11/edm/ssdl")]
-    public partial class tgProperty
-    {
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private string nameField;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private string typeField;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private bool nullableField;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private bool nullableFieldSpecified;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private string storeGeneratedPatternField;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private string maxLengthField;
-
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private bool maxLengthFieldSpecified;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Name
-        {
-            get
-            {
-                return this.nameField;
-            }
-            set
-            {
-                this.nameField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Type
-        {
-            get
-            {
-                if (this.typeField == "Binary")
-                {
-                    this.typeField = "int";
-
-                    try
-                    {
-                        if (!String.IsNullOrWhiteSpace(this.MaxLength) && ulong.Parse(this.MaxLength) > 1)
-                        {
-                            this.typeField += "[]";
-                        }
-                    }
-                    catch
-                    {
-                        return "FAILED";
-                    }
-                }
-
-                return this.typeField;
-            }
-            set
-            {
-                this.typeField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public bool Nullable
-        {
-            get
-            {
-                return this.nullableField;
-            }
-            set
-            {
-                this.nullableField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool NullableSpecified
-        {
-            get
-            {
-                return this.nullableFieldSpecified;
-            }
-            set
-            {
-                this.nullableFieldSpecified = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string StoreGeneratedPattern
-        {
-            get
-            {
-                return this.storeGeneratedPatternField;
-            }
-            set
-            {
-                this.storeGeneratedPatternField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string MaxLength
-        {
-            get
-            {
-                if (!String.IsNullOrWhiteSpace(this.maxLengthField) && this.maxLengthField.ToLower() == "max")
-                {
-                    return "2147483647";
-                }
-
-                return this.maxLengthField;
-            }
-            set
-            {
-                this.maxLengthField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool MaxLengthSpecified
-        {
-            get
-            {
-                return this.maxLengthFieldSpecified;
-            }
-            set
-            {
-                this.maxLengthFieldSpecified = value;
-            }
-        }
-    }
-
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18060")]
-
-
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://schemas.microsoft.com/ado/2009/11/edm/ssdl")]
     public partial class tgAssociation
     {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -1775,7 +1625,7 @@ namespace TiraggoEdmx_v3
         private tgPropertyRef[] keyField;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private tgColumnCLR[] propertyField;
+        private tgProperty[] propertyField;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private tgNavigationProperty[] navigationPropertyField;
@@ -1799,7 +1649,7 @@ namespace TiraggoEdmx_v3
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("Property")]
-        public tgColumnCLR[] Properties
+        public tgProperty[] Properties
         {
             get
             {
@@ -1846,7 +1696,7 @@ namespace TiraggoEdmx_v3
 
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://schemas.microsoft.com/ado/2009/11/edm")]
-    public partial class tgColumnCLR
+    public partial class tgProperty
     {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private string nameField;

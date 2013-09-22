@@ -80,8 +80,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="EdmxFiles\V3\Model1.edmx_">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model11.Designer.cs</LastGenOutput>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </None>
