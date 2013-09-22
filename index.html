@@ -69,6 +69,39 @@
 <span class="p">}</span>
 </pre></div>
 
+<p>After installing TiraggoEdmx you will have two sample T4 templates installed in your "Models" folder. One is for V2 edmx files and the other is for V3 edmx files. They will both run fine, however, only one will generate code (depending on which version of edmx files you're using).</p>
+
+<p>These generate simple classes and are only meant to show you how to use the metadata and specifically how you get to the underlying low level information very easy. The classes generated will look something like this.</p>
+
+<div class="highlight highlight-csharp"><pre><span class="k">namespace</span> <span class="nn">MyNamespace.Models.TiraggoEdmx</span>
+<span class="p">{</span>
+    <span class="c1">// Physical Table [dbo.CollaboratorInvite]</span>
+    <span class="k">public</span> <span class="k">partial</span> <span class="k">class</span> <span class="nc">CollaboratorInvite</span>
+    <span class="p">{</span>
+        <span class="c1">// Physical SQL Column [Id], Type [uniqueidentifier]</span>
+<span class="na">        [Key]</span>
+<span class="na">        [Required]</span>
+        <span class="k">public</span> <span class="n">Guid</span> <span class="n">MemberId</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+
+        <span class="c1">// Physical SQL Column [CollborationKey], Type [nvarchar]</span>
+<span class="na">        [Key]</span>
+<span class="na">        [Required]</span>
+        <span class="k">public</span> <span class="n">String</span> <span class="n">CollborationKey</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+
+        <span class="c1">// Physical SQL Column [RepositoryId], Type [uniqueidentifier]</span>
+<span class="na">        [Required]</span>
+        <span class="k">public</span> <span class="n">Guid</span> <span class="n">RepositoryId</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+
+        <span class="c1">// Physical SQL Column [InviteeId], Type [uniqueidentifier]</span>
+<span class="na">        [Required]</span>
+        <span class="k">public</span> <span class="n">Guid</span> <span class="n">InviteeId</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+
+        <span class="c1">// Physical SQL Column [DateCreatedOn], Type [datetime]</span>
+        <span class="k">public</span> <span class="n">DateTime</span> <span class="n">CreatedOn</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
 <p><a href="http://brewdawg.github.io/Tiraggo.EF/">Tiraggo.EF</a> which builds the Tiraggo Dynamic Query classes (based on EntitySpaces) uses the TiraggoEdmx metadata library for the Entity Framework. </p>
       </section>
 
