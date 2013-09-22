@@ -32,13 +32,42 @@
       <section>
         <div id="title">
           <h1>Tiraggo.edmx</h1>
-          <p>Full EDMX Metadata far superior to Microsoft API (V2 &amp; V3) versions</p>
+          <p>Full EDMX Metadata served up with low level SQL metadata (V2 &amp; V3 Edmx Supported)</p>
           <hr>
           <span class="credits left">Project maintained by <a href="https://github.com/BrewDawg">BrewDawg</a></span>
           <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
         </div>
 
-        <p>Doc coming later today (but see sample app Windows forms and Templates installed for now)</p>
+        <p>TiraggoEdmx is a metadata engine that is capable of serving up all of the data in your EDMX file(s). This includes the mappings between your conceptual columns and physical database columns. You can get the low level SQL information and data types.</p>
+
+<p>TiraggoEdmx will continue to grow and many more features will be added to the 'TiraggoEntityInfo' class which is what makes using TiraggoEdmx so easy.</p>
+
+<p>Let's take a look at how you use the 'TiraggoEntityInfo' class.</p>
+
+<div class="highlight highlight-csharp"><pre><span class="c1">// Typical Entity Framework classes here</span>
+<span class="n">MetadataLoader</span> <span class="n">loader</span> <span class="p">=</span> <span class="k">new</span> <span class="n">MetadataLoader</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+<span class="n">EdmItemCollection</span> <span class="n">items</span> <span class="p">=</span> <span class="n">loader</span><span class="p">.</span><span class="n">CreateEdmItemCollection</span><span class="p">(</span><span class="n">inputFile</span><span class="p">);</span>
+
+<span class="c1">// TiraggoEdmx code now ...</span>
+<span class="n">Edmx</span> <span class="n">edmx</span> <span class="p">=</span> <span class="n">Edmx</span><span class="p">.</span><span class="n">Load</span><span class="p">(</span><span class="s">@"Model1.edmx"</span><span class="p">);</span>
+
+<span class="k">foreach</span> <span class="p">(</span><span class="n">EntityType</span> <span class="n">e</span> <span class="k">in</span> <span class="n">items</span><span class="p">.</span><span class="n">GetItems</span><span class="p">&lt;</span><span class="n">EntityType</span><span class="p">&gt;().</span><span class="n">OrderBy</span><span class="p">(</span><span class="n">a</span> <span class="p">=&gt;</span> <span class="n">a</span><span class="p">.</span><span class="n">Name</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="c1">// Everthing you need including your low level SQL metadata types</span>
+    <span class="n">TiraggoEntityInfo</span> <span class="n">info</span> <span class="p">=</span> <span class="k">new</span> <span class="n">TiraggoEntityInfo</span><span class="p">(</span><span class="n">edmx</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">FullName</span><span class="p">);</span>
+
+    <span class="k">foreach</span> <span class="p">(</span><span class="n">tgColumnCLR</span> <span class="n">prop</span> <span class="k">in</span> <span class="n">info</span><span class="p">.</span><span class="n">ConceptualModel</span><span class="p">.</span><span class="n">Properties</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// prop.Name is conceptual name, let's get the physical name</span>
+        <span class="kt">string</span> <span class="n">physicalColumName</span> <span class="p">=</span> <span class="n">info</span><span class="p">.</span><span class="n">ColumnMappings</span><span class="p">[</span><span class="n">prop</span><span class="p">.</span><span class="n">Name</span><span class="p">];</span>
+
+        <span class="c1">// Let's now get the low level SQL info using the physical name</span>
+        <span class="n">tgProperty</span> <span class="n">sqlInfo</span> <span class="p">=</span> <span class="n">info</span><span class="p">.</span><span class="n">ColumnSQL</span><span class="p">[</span><span class="n">physicalColumName</span><span class="p">];</span>
+
+        <span class="c1">// Now we have the type such as 'nvarchar', 'timestamp', and more</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
       </section>
 
     </div>
