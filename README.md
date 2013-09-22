@@ -1,4 +1,1 @@
-Tiraggo.Edmx
-============
-
-Full EDMX Metadata for superior to Microsoft API (V2 &amp; V3) versions
+See [Documention](http://brewdawg.github.io/Tiraggo.Edmx/)
