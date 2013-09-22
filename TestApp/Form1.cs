@@ -50,8 +50,8 @@ namespace ReadEdmxFiles
                     attributes += "\t[Required]" + Environment.NewLine;
                 }
 
-
-                TiraggoEdmx_v2.tgProperty sqlInfo = v2_info.ColumnSQL[prop.Name];
+                string phyicalName = v2_info.ColumnMappings[prop.Name];
+                TiraggoEdmx_v2.tgProperty sqlInfo = v2_info.ColumnSQL[phyicalName];
                 text += "\t// Physical SQL Column [" + sqlInfo.Name + "], Type [" + sqlInfo.Type + "]" + Environment.NewLine;
 
                 if (!string.IsNullOrWhiteSpace(attributes))
@@ -98,7 +98,8 @@ namespace ReadEdmxFiles
                 }
 
 
-                TiraggoEdmx_v3.tgProperty sqlInfo = v3_info.ColumnSQL[prop.Name];
+                string phyicalName = v3_info.ColumnMappings[prop.Name];
+                TiraggoEdmx_v3.tgProperty sqlInfo = v3_info.ColumnSQL[phyicalName];
                 text += "\t// Physical SQL Column [" + sqlInfo.Name + "], Type [" + sqlInfo.Type + "]" + Environment.NewLine;
 
                 if (!string.IsNullOrWhiteSpace(attributes))
