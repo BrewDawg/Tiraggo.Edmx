@@ -1,1 +1,1 @@
-See [Documention](http://brewdawg.github.io/Tiraggo.Edmx/)
+See [Documentation](http://brewdawg.github.io/Tiraggo.Edmx/)
