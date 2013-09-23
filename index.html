@@ -67,6 +67,9 @@
     <span class="c1">// Everthing you need including your low level SQL metadata types</span>
     <span class="n">TiraggoEntityInfo</span> <span class="n">info</span> <span class="p">=</span> <span class="k">new</span> <span class="n">TiraggoEntityInfo</span><span class="p">(</span><span class="n">edmx</span><span class="p">,</span> <span class="n">e</span><span class="p">.</span><span class="n">FullName</span><span class="p">);</span>
 
+    <span class="kt">string</span> <span class="n">schema</span> <span class="p">=</span> <span class="n">info</span><span class="p">.</span><span class="n">StorageInfo</span><span class="p">.</span><span class="n">Schema</span><span class="p">;</span>  <span class="c1">// dbo</span>
+    <span class="kt">string</span> <span class="n">table</span> <span class="p">=</span> <span class="n">info</span><span class="p">.</span><span class="n">StorageInfo</span><span class="p">.</span><span class="n">Name</span><span class="p">;</span>     <span class="c1">// Employees</span>
+
     <span class="k">foreach</span> <span class="p">(</span><span class="n">tgProperty</span> <span class="n">prop</span> <span class="k">in</span> <span class="n">info</span><span class="p">.</span><span class="n">ConceptualModel</span><span class="p">.</span><span class="n">Properties</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="c1">// prop.Name is conceptual name, let's get the physical name</span>
@@ -75,7 +78,10 @@
         <span class="c1">// Let's now get the low level SQL info using the physical name</span>
         <span class="n">tgProperty</span> <span class="n">sqlInfo</span> <span class="p">=</span> <span class="n">info</span><span class="p">.</span><span class="n">ColumnSQL</span><span class="p">[</span><span class="n">physicalColumName</span><span class="p">];</span>
 
-        <span class="c1">// Now we have the type such as 'nvarchar', 'timestamp', and more</span>
+        <span class="c1">// Now we have the low level SQL Information</span>
+        <span class="kt">string</span> <span class="n">s1</span> <span class="p">=</span> <span class="n">sqlInfo</span><span class="p">.</span><span class="n">Type</span><span class="p">;</span> <span class="c1">// nvarchar, datetime, ...</span>
+        <span class="kt">string</span> <span class="n">s2</span> <span class="p">=</span> <span class="n">sqlInfo</span><span class="p">.</span><span class="n">Name</span><span class="p">;</span> <span class="c1">// physical column name</span>
+        <span class="c1">// and so on with many more properties on sqlInfo ...</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
