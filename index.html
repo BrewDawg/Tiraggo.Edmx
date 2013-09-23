@@ -55,13 +55,14 @@
 
 <p>Let's take a look at how you use the 'TiraggoEntityInfo' class.</p>
 
-<div class="highlight highlight-csharp"><pre><span class="c1">// Typical Entity Framework classes here</span>
+<div class="highlight highlight-csharp"><pre><span class="c1">// Typical T4 Toolbox Classes Here</span>
 <span class="n">MetadataLoader</span> <span class="n">loader</span> <span class="p">=</span> <span class="k">new</span> <span class="n">MetadataLoader</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
 <span class="n">EdmItemCollection</span> <span class="n">items</span> <span class="p">=</span> <span class="n">loader</span><span class="p">.</span><span class="n">CreateEdmItemCollection</span><span class="p">(</span><span class="n">inputFile</span><span class="p">);</span>
 
 <span class="c1">// TiraggoEdmx code now ...</span>
 <span class="n">Edmx</span> <span class="n">edmx</span> <span class="p">=</span> <span class="n">Edmx</span><span class="p">.</span><span class="n">Load</span><span class="p">(</span><span class="s">@"Model1.edmx"</span><span class="p">);</span>
 
+<span class="c1">// We use the loader to get the entity names in our .edmx</span>
 <span class="k">foreach</span> <span class="p">(</span><span class="n">EntityType</span> <span class="n">e</span> <span class="k">in</span> <span class="n">items</span><span class="p">.</span><span class="n">GetItems</span><span class="p">&lt;</span><span class="n">EntityType</span><span class="p">&gt;().</span><span class="n">OrderBy</span><span class="p">(</span><span class="n">a</span> <span class="p">=&gt;</span> <span class="n">a</span><span class="p">.</span><span class="n">Name</span><span class="p">))</span>
 <span class="p">{</span>
     <span class="c1">// Everthing you need including your low level SQL metadata types</span>
