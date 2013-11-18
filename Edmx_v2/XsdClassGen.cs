@@ -195,7 +195,7 @@ namespace TiraggoEdmx_v2
         private string providerField;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private ushort providerManifestTokenField;
+        private string providerManifestTokenField;
 
         /// <remarks/>
         public tgEntityContainer EntityContainer
@@ -296,7 +296,7 @@ namespace TiraggoEdmx_v2
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public ushort ProviderManifestToken
+        public string ProviderManifestToken
         {
             get
             {
